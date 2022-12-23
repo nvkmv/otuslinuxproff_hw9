@@ -1,0 +1,77 @@
+---
+# tasks file for httpd_install and spawn-fcgi
+- name: yum update
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
+
+- name: install httpd
+  ansible.builtin.yum:
+    name:
+      - epel-release
+      - httpd
+        #- spawn-fcgi
+    state: latest  
+
+- name: tamplete unit 
+  ansible.builtin.template:
+    src: templates/unit-system/httpd@.service
+    dest: /usr/lib/systemd/system
+    owner: root
+    group: wheel
+    mode: '0644'
+
+- name: template sysconfig
+  ansible.builtin.template:
+    src: templates/sysconfig/httpd-first
+    dest: /etc/sysconfig
+    owner: root
+    group: wheel
+    mode: '0644'
+
+- name: template sysconfig
+  ansible.builtin.template:
+    src: templates/sysconfig/httpd-second
+    dest: /etc/sysconfig
+    owner: root
+    group: wheel
+    mode: '0644'
+
+- name: template httpd conconfig
+  ansible.builtin.template:
+    src: templates/conf/first.conf
+    dest: /etc/httpd/conf
+    owner: root
+    group: wheel
+    mode: '0644'
+
+- name: template httpd conconfig
+  ansible.builtin.template:
+    src: templates/conf/second.conf
+    dest: /etc/httpd/conf
+    owner: root
+    group: wheel
+    mode: '0644'
+
+- name: systemd start units
+  systemd:
+    name: httpd@first
+    enabled: yes
+    state: started
+
+- name: systemd start units
+  systemd:
+    name: httpd@second
+    enabled: yes
+    state: started
+
+- name: show listen ports
+  shell: ss -tlnp
+  register: result
+
+- name: show listen ports
+  debug:
+    var: result  
+
+
+  

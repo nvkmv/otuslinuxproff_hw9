@@ -1,0 +1,10 @@
+---
+
+- name: config server
+  hosts: all
+  become: true
+    
+  roles:
+    #- httpd
+    #- spawn-fcgii
+    - watchtimer    

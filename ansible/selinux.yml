@@ -1,0 +1,15 @@
+---
+
+- name: selinux disable
+  hosts: all
+  become: true
+    
+  tasks:
+    - name: disable SE 
+      ansible.posix.selinux:
+        state: disabled
+
+    - name: Reboot 
+      ansible.builtin.reboot:
+        reboot_timeout: 3600   
+         

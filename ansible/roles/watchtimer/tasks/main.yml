@@ -1,0 +1,41 @@
+---
+# tasks file for watchtimer
+- name: create log file
+  file:
+    path: /var/log/watchlog.log
+    state: touch
+    mode: '0666'
+
+- name: template config
+  template:
+    src: templates/watchlog
+    dest: /etc/sysconfig  
+
+- name: template script
+  template:
+    src: templates/watchlog.sh
+    dest: /opt
+    mode: '0777'
+
+- name: template units
+  template:
+    src: templates/watchlog.service
+    dest: /etc/systemd/system
+    owner: root
+    group: wheel
+    mode: '0644'
+
+- name: template units
+  template:
+    src: templates/watchlog.timer
+    dest: /etc/systemd/system
+    owner: root
+    group: wheel
+    mode: '0644'
+
+- name: start timer unit
+  systemd:
+    name: watchlog.timer
+    enabled: yes
+    state: started
+

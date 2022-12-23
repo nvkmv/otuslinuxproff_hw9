@@ -1,0 +1,41 @@
+---
+# tasks file for spawn-fcgi
+- name: install epel repository
+  yum:
+    name: epel-release
+    state: latest
+      
+- name: install spawn-fcgi and other packages
+  yum:
+    name:
+      - spawn-fcgi
+      - php
+      - php-cli
+      - mod_fcgid
+    state: latest
+
+- name: template unit
+  template:
+    src: templates/spawn-fcgi.service
+    dest: /etc/systemd/system
+    owner: root
+    group: wheel
+    mode: '0644'
+
+- name: template spawn-fcgi config
+  template:
+    src: templates/spawn-fcgi
+    dest: /etc/sysconfig
+    owner: root
+    group: wheel
+    mode: '0644'
+  
+
+- name: systemd enable and start service
+  systemd:
+    name: spawn-fcgi
+    enabled: yes
+    state: started
+
+
+
