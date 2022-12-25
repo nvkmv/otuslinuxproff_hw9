@@ -39,3 +39,11 @@
     enabled: yes
     state: started
 
+- name: start watchlog unit
+  systemd:
+    name: watchlog.service
+    enabled: yes
+    state: started
+
+- name: write to log
+  shell: echo "this is ALERT" >> /var/log/watchlog.log

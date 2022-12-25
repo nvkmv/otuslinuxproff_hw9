@@ -5,6 +5,7 @@
   become: true
     
   roles:
-    #- httpd
-    #- spawn-fcgii
-    - watchtimer    
+    - watchtimer
+    - spawn-fcgi
+    - httpd
+    - debug 

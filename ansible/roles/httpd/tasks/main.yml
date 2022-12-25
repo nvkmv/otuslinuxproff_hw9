@@ -65,13 +65,7 @@
     enabled: yes
     state: started
 
-- name: show listen ports
-  shell: ss -tlnp
-  register: result
-
-- name: show listen ports
-  debug:
-    var: result  
+ 
 
 
   
