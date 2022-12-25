@@ -1,0 +1,25 @@
+---
+# tasks file for debug
+- name: debug timer
+  shell: cat /var/log/messages | grep Master
+  register: result_timer
+    
+- name: print debug timer
+  debug:
+    var: result_timer.stdout_lines
+
+- name: debug spawn-fcgi
+  shell: systemctl status spawn-fcgi
+  register: result_spawn
+
+- name: print debug spawn-fcgi
+  debug:
+    var: result_spawn.stdout_lines
+
+- name: debug listen port
+  shell: ss -tlnp
+  register: result_httpd
+
+- name: print debug httpd
+  debug:
+    var: result_httpd.stdout_lines
