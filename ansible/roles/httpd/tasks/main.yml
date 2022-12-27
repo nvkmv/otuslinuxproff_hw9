@@ -39,16 +39,16 @@
 
 - name: template httpd conconfig
   ansible.builtin.template:
-    src: templates/conf/first.conf
-    dest: /etc/httpd/conf
+    src: templates/conf/first.conf.j2
+    dest: /etc/httpd/conf/first.conf
     owner: root
     group: wheel
     mode: '0644'
 
 - name: template httpd conconfig
   ansible.builtin.template:
-    src: templates/conf/second.conf
-    dest: /etc/httpd/conf
+    src: templates/conf/second.conf.j2
+    dest: /etc/httpd/conf/second.conf
     owner: root
     group: wheel
     mode: '0644'

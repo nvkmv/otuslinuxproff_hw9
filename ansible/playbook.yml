@@ -3,7 +3,8 @@
 - name: config server
   hosts: all
   become: true
-    
+  gather_facts: false
+
   roles:
     - watchtimer
     - spawn-fcgi
