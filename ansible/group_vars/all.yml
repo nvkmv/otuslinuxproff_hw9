@@ -1,4 +1,4 @@
 ---
 
-first_port: 8087
-second_port: 8088
+first_port: 8080
+second_port: 8081

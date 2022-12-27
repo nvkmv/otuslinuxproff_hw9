@@ -1,2 +1,11 @@
 ---
 # handlers file for httpd_install
+- name: restart httpd-first
+  systemd:
+    name: httpd@first
+    state: restarted
+
+- name: restart httpd-second
+  systemd:
+    name: httpd@second
+    state: restarted     

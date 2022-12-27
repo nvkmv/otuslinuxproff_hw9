@@ -35,7 +35,7 @@
     dest: /etc/sysconfig
     owner: root
     group: wheel
-    mode: '0644'
+    mode: '0644'    
 
 - name: template httpd conconfig
   ansible.builtin.template:
@@ -44,6 +44,7 @@
     owner: root
     group: wheel
     mode: '0644'
+  notify: restart httpd-first
 
 - name: template httpd conconfig
   ansible.builtin.template:
@@ -52,6 +53,7 @@
     owner: root
     group: wheel
     mode: '0644'
+  notify: restart httpd-second    
 
 - name: systemd start units
   systemd:
